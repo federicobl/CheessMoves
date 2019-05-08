@@ -1,9 +1,41 @@
+tablero = [
+['t', 'k', 'a', 'q', 'r', 'a', 'k', 't'],
+['p', 'p', 'p', 'p', 'p', 'p', 'p', 'p'],
+[' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+[' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+[' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+[' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+['P', 'P', 'P', 'P', 'P', 'P', 'P', 'P'],
+['T', 'K', 'A', 'R', 'Q', 'A', 'K', 'T']
+]
+
+
 def tablero_a_cadena(tablero):
+    """
+    (list of str) -> str
+    recibimos un tablero o diccionario y devolvemos una cadena
+
+    >>> tablero_a_cadena(tablero)
+    [
+    ['t', 'k', 'a', 'q', 'r', 'a', 'k', 't'],
+    ['p', 'p', 'p', 'p', 'p', 'p', 'p', 'p'],
+    [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+    [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+    [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+    [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+    ['P', 'P', 'P', 'P', 'P', 'P', 'P', 'P'],
+    ['T', 'K', 'A', 'R', 'Q', 'A', 'K', 'T']
+    ]
+
+
+    :param tablero: el tablero con la posicionde cada ficha
+    :return: dict el tablero con la nueva posicion de las fichas
+    """
+
     cadena = ""
     for fila in tablero:
         cadena += str(fila) + "\n"
     return cadena
-
 
 def obtener_nombre_pieza(simbolo):
     """
