@@ -1,10 +1,20 @@
+tablero = [
+['t', 'k', 'a', 'q', 'r', 'a', 'k', 't'],
+['p', 'p', 'p', 'p', 'p', 'p', 'p', 'p'],
+[' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+[' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+[' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+[' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+['P', 'P', 'P', 'P', 'P', 'P', 'P', 'P'],
+['T', 'K', 'A', 'R', 'Q', 'A', 'K', 'T']
+]
+
 def tablero_a_cadena(tablero):
     cadena = ""
     for fila in tablero:
         cadena += str(fila) + "\n"
     return cadena
-
-
+print(tablero_a_cadena(tablero))
 def obtener_nombre_pieza(simbolo):
     """
     (str) -> str
