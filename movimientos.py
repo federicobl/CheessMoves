@@ -14,8 +14,6 @@ def tablero_a_cadena(tablero):
     (list of str) -> str
     recibimos un tablero o diccionario y devolvemos una cadena
 
-    >>> tablero_a_cadena(tablero)
-
 
 
     :param tablero: el tablero con la posicionde cada ficha
@@ -60,7 +58,8 @@ def obtener_nombre_pieza(simbolo):
     else:
         return 'No es una pieza'
 
-
+def mover_peon(tablero,x_inicial,y_inicial,x_final,y_final):
+    pass
 def mover_torre(tablero, x_inicial, y_inicial, x_final, y_final):
     '''
     ([][],int,int,int,int)-> [][]: tablero resultante.
@@ -75,27 +74,46 @@ def mover_torre(tablero, x_inicial, y_inicial, x_final, y_final):
     '''
 
     ficha =  tablero[x_inicial][y_inicial]
+    torre = 'tT'
+    if (ficha not in torre):
+        return 'no es una torre'
 
-    x_diferencia =  x_final- x_inicial
-    y_diferencia = y_final - y_inicial
+    ultima_posicion = tablero[x_final][y_final]
+    team = ficha.islower()
+    team2= False
+    if (ultima_posicion != ' '):
+        team2 = ultima_posicion.islower()
+        if(team==team2):
+            return 'camino bloqueado'
 
-    cont_filas = 0
-    cont_columnas = 0
+    if x_inicial!=x_final and y_inicial!=y_final:
+       return 'movimiento invalido'
+
     for fila in range(x_inicial,x_final):
         if(x_inicial == x_final):
             break
-        if fila != x_inicial and fila != x_final and tablero[fila][y_inicial] != ' ':
+        elif fila != x_inicial and fila != x_final and tablero[fila][y_inicial] != ' ':
             return 'camino bloqueado'
-        if fila == x_final:
-            tablero[fila][y_inicial] = tablero[x_inicial,x_final]
+
+
+
 
     for columna in range(y_inicial,y_final):
-        if(tablero[x_inicial][columna])!= ' ':
+        if (y_inicial == y_final):
+            break
+        elif columna != y_inicial and columna != y_final and tablero[x_inicial][columna] != ' ':
             return 'camino bloqueado'
 
 
+    tablero[x_final][y_final] = ficha
+    tablero[x_inicial][y_inicial] = ' '
 
-    if (ficha != 't'):
-        return 'no es una torre'
-print(mover_torre(tablero, 1, 1, 2, 2))
+    tablero = tablero_a_cadena(tablero)
+
+    return tablero;
+
+
+
+
+print(mover_torre(tablero, 0, 0, 1, 1))
 
