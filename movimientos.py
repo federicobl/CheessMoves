@@ -1,6 +1,6 @@
 tablero = [
 ['t', 'k', 'a', 'q', 'r', 'a', 'k', 't'],
-['p', 'p', 'p', 'p', 'p', 'p', 'p', 'p'],
+[' ', 'p', 'p', 'p', 'p', 'p', 'p', 'p'],
 [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
 [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
 [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
@@ -59,10 +59,79 @@ def obtener_nombre_pieza(simbolo):
         return 'No es una pieza'
 
 def mover_peon(tablero,x_inicial,y_inicial,x_final,y_final):
-    pass
+    '''
+    ([][],int,int,int,int)-> [][]: tablero resultante del movimiento de un peon.
+
+    :param tablero: [][]: matriz con la posicion de las fichas
+    :param x_inicial: int: entero indocando posicion en x inicial
+    :param y_inicial: int: entero indocando posicion en y inicial
+    :param x_final: int: entero indocando posicion en x final
+    :param y_final: int: entero indocando posicion en y final
+    :return: [][] tablero resultante
+    '''
+
+    ficha = tablero[x_inicial][y_inicial]
+    peon = 'pP'
+    if (ficha not in peon):
+        return 'no es un peon'
+
+    ultima_posicion = tablero[x_final][y_final]
+    have_to_eat = False
+    team = ficha.islower()
+    team2 = False
+    if (ultima_posicion != ' '):
+        team2 = ultima_posicion.islower()
+        if (team == team2):
+            return 'camino bloqueado'
+    if(x_final>x_inicial and team):
+        x_diferencia = x_final - x_inicial
+    elif(x_final<x_inicial and team2):
+        x_diferencia = x_inicial-x_final
+    else:
+        return 'movimiento invalido'
+
+    if x_diferencia>2:
+        return 'movimiento_invalido'
+    maxmov=0
+    contmov = 0
+    if x_inicial == 1 or x_inicial == 6:
+        maxmov = 2
+    else:
+        maxmov = 1
+
+    try:
+        for fila in range(x_inicial, x_final):
+            ++contmov
+            if (x_inicial == x_final):
+                break
+            elif fila != x_inicial and fila != x_final and tablero[fila][y_inicial] != ' ' and x_diferencia!=2:
+                have_to_eat = True
+                break;
+            elif fila != x_inicial and fila != x_final and tablero[fila][y_inicial] != ' ' and x_diferencia == 2:
+                return 'movimiento invalido'
+            elif contmov==maxmov:
+
+
+
+        for columna in range(y_inicial, y_final):
+            if (y_inicial == y_final):
+                break
+            elif columna != y_inicial and columna != y_final and tablero[x_inicial][columna] != ' ':
+                return 'camino bloqueado'
+
+        tablero[x_final][y_final] = ficha
+        tablero[x_inicial][y_inicial] = ' '
+
+        tablero = tablero_a_cadena(tablero)
+    except:
+        TypeError('la posicion esta fuera del tablero')
+
+    return tablero;
+
+
 def mover_torre(tablero, x_inicial, y_inicial, x_final, y_final):
     '''
-    ([][],int,int,int,int)-> [][]: tablero resultante.
+    ([][],int,int,int,int)-> [][]: tablero resultante del movimiento de una torre.
 
 
     :param tablero: [][]: matriz con la posicion de las fichas
@@ -88,21 +157,20 @@ def mover_torre(tablero, x_inicial, y_inicial, x_final, y_final):
 
     if x_inicial!=x_final and y_inicial!=y_final:
        return 'movimiento invalido'
+    try:
+        for fila in range(x_inicial,x_final):
+            if(x_inicial == x_final):
+                break
+            elif fila != x_inicial and fila != x_final and tablero[fila][y_inicial] != ' ':
+                return 'camino bloqueado'
 
-    for fila in range(x_inicial,x_final):
-        if(x_inicial == x_final):
-            break
-        elif fila != x_inicial and fila != x_final and tablero[fila][y_inicial] != ' ':
-            return 'camino bloqueado'
-
-
-
-
-    for columna in range(y_inicial,y_final):
-        if (y_inicial == y_final):
-            break
-        elif columna != y_inicial and columna != y_final and tablero[x_inicial][columna] != ' ':
-            return 'camino bloqueado'
+        for columna in range(y_inicial,y_final):
+            if (y_inicial == y_final):
+                break
+            elif columna != y_inicial and columna != y_final and tablero[x_inicial][columna] != ' ':
+                return 'camino bloqueado'
+    except:
+        TypeError('la posicion no existe en el tablero')
 
 
     tablero[x_final][y_final] = ficha
@@ -115,5 +183,5 @@ def mover_torre(tablero, x_inicial, y_inicial, x_final, y_final):
 
 
 
-print(mover_torre(tablero, 0, 0, 1, 1))
+print(mover_torre(tablero, 0, 0, 1, 0))
 
