@@ -73,7 +73,7 @@ def mover_peon(tablero,x_inicial,y_inicial,x_final,y_final):
     ficha = tablero[x_inicial][y_inicial]
     peon = 'pP'
     if (ficha not in peon):
-        return 'no es un peon'
+        raise TypeError('no es un peon')
 
     ultima_posicion = tablero[x_final][y_final]
     have_to_eat = False
@@ -82,7 +82,7 @@ def mover_peon(tablero,x_inicial,y_inicial,x_final,y_final):
     if (ultima_posicion != ' '):
         team2 = ultima_posicion.islower()
         if (team == team2):
-            return 'camino bloqueado'
+            raise TypeError('camino bloqueado')
     if(x_final>x_inicial and team):
         x_diferencia = x_final - x_inicial
     elif(x_final<x_inicial and team2):
@@ -90,26 +90,29 @@ def mover_peon(tablero,x_inicial,y_inicial,x_final,y_final):
     else:
         return 'movimiento invalido'
 
-    if x_diferencia>2:
-        return 'movimiento_invalido'
-    maxmov=0
-    contmov = 0
+    maxmov = 0
     if x_inicial == 1 or x_inicial == 6:
         maxmov = 2
     else:
         maxmov = 1
 
+    if x_diferencia>2 or x_diferencia>maxmov:
+        return 'movimiento_invalido'
+
+
     try:
         for fila in range(x_inicial, x_final):
-            ++contmov
             if (x_inicial == x_final):
                 break
-            elif fila != x_inicial and fila != x_final and tablero[fila][y_inicial] != ' ' and x_diferencia!=2:
+            if fila==x_inicial:
+                continue
+            elif fila != x_inicial and tablero[fila][y_inicial] != ' ' and x_diferencia!=2:
                 have_to_eat = True
-                break;
-            elif fila != x_inicial and fila != x_final and tablero[fila][y_inicial] != ' ' and x_diferencia == 2:
+                tablero[fila][y_inicial] = ficha
+                break
+            elif fila != x_inicial and tablero[fila][y_inicial] == ' ' and x_diferencia == 2:
                 return 'movimiento invalido'
-            elif contmov==maxmov:
+
 
 
 
